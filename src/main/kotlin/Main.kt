@@ -51,6 +51,10 @@ fun main(args: Array<String>) {
 //    }
     var markdown = MarkdownParser()
     var x = markdown.parseCode("Markdown.md")
+    for (i in x)
+    {
+        println(i.text)
+    }
 
 }
 
