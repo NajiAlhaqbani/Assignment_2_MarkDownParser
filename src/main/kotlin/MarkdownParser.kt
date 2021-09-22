@@ -15,35 +15,47 @@ class MarkdownParser : CodeParser {
             } != null) {
             line?.let {
                 var results = regex.matchEntire(it)
-                var node = Node()
+                var node = MarkdownNode()
                 results?.let {
 
-                    for (i in 1 until results.groups.size) {
+                    for (i in 1 until results.groups.size-1) {
+                        //println(results.groupValues[0])
                         if (results.groupValues[i] == "**"){
-                            node.text = "<b>${results.groupValues[2]}</b>"
+                            node.text = results.groupValues[2]
+                            node.type = 5
                             lines.add(node)
                         }
                         else if (results.groupValues[i] == "*")
                         {
-                            node.text = "<i>${results.groupValues[2]}</i>"
+                            node.text = results.groupValues[2]
+                            node.type = 6
                             lines.add(node)
                         }else if (results.groupValues[i] == "#")
                         {
-                            node.text = "<h1>${results.groupValues[2]}</h1>"
+                            node.text = results.groupValues[2]
+                            node.type = 1
                             lines.add(node)
                         }
                         else if (results.groupValues[i] == "##")
                         {
-                            node.text = "<h2>${results.groupValues[2]}</h2>"
+                            node.text = results.groupValues[2]
+                            node.type = 2
                             lines.add(node)
                         }
                         else if (results.groupValues[i] == "###")
                         {
-                            node.text = "<h3>${results.groupValues[2]}</h3>"
+                            node.text = results.groupValues[2]
+                            node.type = 3
                             lines.add(node)
                         }else if (results.groupValues[i] == ">")
                         {
-                            node.text = "<blockquote>${results.groupValues[2]}</blockquote>"
+                            node.text = results.groupValues[2]
+                            node.type = 7
+                            lines.add(node)
+                        }else if(results.groupValues[i]=="")
+                        {
+                            node.text = results.groupValues[2]
+                            node.type = 4
                             lines.add(node)
                         }
                     }
